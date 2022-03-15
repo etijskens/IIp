@@ -31,13 +31,13 @@ Install and setup Visual Studio Code for remote development with Python, C++ and
 Install VSCode (Visual Studio Code) from https://code.visualstudio.com/download for your operating system.
 Open VSCode, press the ``Extensions`` button
 
-.. image:: ../pictures/Extensions_icon.png
+.. image:: pictures/Extensions_icon.png
 
 in the toolbar on the left, search for the items below, and install them.
 
 In the figure below we searched for all extensions with a name containing 'Remote'.
 
-.. image:: ../pictures/Extensions_Marketplace.png
+.. image:: pictures/Extensions_Marketplace.png
 
 We need these VSCode extensions (plugins):
 
@@ -59,11 +59,11 @@ We need these VSCode extensions (plugins):
 Next we must create an `SSH Target` to establish a connection to *Leibniz*. In the vertical toolbar on the left,
 press the ``Remote Explorer`` button,
 
-.. image:: ../pictures/Remote_Explorer_icon.png
+.. image:: pictures/Remote_Explorer_icon.png
 
 and make sure the dropdown menu next toe `Remote Explorer` shows `SSH Targets:
 
-.. image:: ../pictures/SSH_Targets.png
+.. image:: pictures/SSH_Targets.png
 
 Press the `+` to create a new SSH Target. You will be prompted to fill in
 
@@ -78,14 +78,14 @@ Press the `+` to create a new SSH Target. You will be prompted to fill in
 3. Next, it with will prompt you for the location of the ssh config file. The default location is generally ok.
    A new entry with the name `login1-leibniz.hpc.uantwerpen.be` will appear in the `SSH Targets` list.
 
-   .. image:: ../pictures/SSH_Targets_2.png
+   .. image:: pictures/SSH_Targets_2.png
 
 4. To establish a connection you right-click on the new entry, choose ``Connect to host in current window``
    or ``Connect to host in new window`` and enter a remote location (directory) where you want to start to
    work. A good place is ``/scratch/antwerpen/???/<userid>``. If you now press the ``Explorer`` button in the
    toolbar on the left
 
-   .. image:: ../pictures/Explorer_icon.png
+   .. image:: pictures/Explorer_icon.png
 
    the tree view of the remote location you entered is shown.
 
