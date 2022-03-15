@@ -1,16 +1,13 @@
-###########################################################
-Welcome to IIp's documentation!
-###########################################################
+
+#################################
+Welcome to micc2's documentation!
+#################################
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    readme
-   installation
-   api
-   authors
-   changelog
 
 ##################
 Indices and tables
