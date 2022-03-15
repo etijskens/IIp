@@ -41,20 +41,20 @@ In the figure below we searched for all extensions with a name containing 'Remot
 
 We need these VSCode extensions (plugins):
 
-   * Remote - SSH
-   * Remote Development
-   * Preview
-   * Python
-   * MagicPython
-   * Python for VSCode
-   * Pylance
-   * CMake
-   * CMake Tools
-   * C/C++
-   * C/C++ Extension Pack
-   * C/C++ Themes
-   * Better C++ Syntax
-   * Modern Fortran
+* Remote - SSH
+* Remote Development
+* Preview
+* Python
+* MagicPython
+* Python for VSCode
+* Pylance
+* CMake
+* CMake Tools
+* C/C++
+* C/C++ Extension Pack
+* C/C++ Themes
+* Better C++ Syntax
+* Modern Fortran
 
 Next we must create an `SSH Target` to establish a connection to *Leibniz*. In the vertical toolbar on the left,
 press the ``Remote Explorer`` button,
