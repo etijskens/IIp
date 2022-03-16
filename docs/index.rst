@@ -1,13 +1,14 @@
 
-#################################
-Welcome to micc2's documentation!
-#################################
+###############################
+Welcome to IIP's documentation!
+###############################
 
 .. toctree::
    :maxdepth: 3
    :caption: Contents:
 
    readme
+   setup
    authors
 
 ##################

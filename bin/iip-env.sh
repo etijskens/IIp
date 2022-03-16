@@ -1,7 +1,8 @@
 #!/bin/bash
-# This bash script sets the environment for our parallel programming projects
-# . lood modules needed by micc2
-# . load a Python distribution
+# This bash script sets the environment for parallel programming projects managed by micc2.
+# It loads
+# . cluster modules needed by micc2
+# . a cluster module with a suitable Python distribution
 # . ensure that `pip install --user` installs in $VSC_SCRATCH/.local
 
 if [[ $_ == $0 ]]
@@ -15,7 +16,11 @@ module load git
 module load gh
 module load CMake
 
-# select the Python version of your choice
+# Select the Python version of your choice. However, make sure that the
+# build environment of that Python environment is also loaded.
+# In addition, you might need a module with pre-installed Python packages
+# useful for scientific computing, such as numpy, mpi4py, matplotlib, scipy,
+# sympy ...
 module load Python
 
 module list
@@ -24,5 +29,5 @@ module list
 #   $VSC_SCRATCH/.local/lib/pythonX.Y/site-packages/package
 # and not in $VSC_HOME/.local
 export PYTHONUSERBASE=$VSC_SCRATCH/.local
-# adjust the PATH
+# adjust the PATH such that installed apps are available.
 export PATH=$PYTHONUSERBASE/bin:$PATH
