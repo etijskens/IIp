@@ -9,11 +9,11 @@ then
     exit 127
 fi
 
-MY_PATH=$(dirname "$0")
-echo "$MY_PATH"
+# Retrieve the path of the directory containing this script.
+my_path=$(dirname "$BASH_SOURCE")
 
 # setup the environment (assumed to be run from the IIp project directory)
-source ./bin/env.sh
+source $my_path/env.sh
 
 pip install --user et-micc2 numba
 
