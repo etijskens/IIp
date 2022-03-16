@@ -61,7 +61,7 @@ press the ``Remote Explorer`` button,
 
 .. image:: pictures/Remote_Explorer_icon.png
 
-and make sure the dropdown menu next toe `Remote Explorer` shows `SSH Targets:
+and make sure the dropdown menu next toe ``Remote Explorer`` shows ``ß``:
 
 .. image:: pictures/SSH_Targets.png
 
@@ -82,12 +82,21 @@ Press the `+` to create a new SSH Target. You will be prompted to fill in
 
 4. To establish a connection you right-click on the new entry, choose ``Connect to host in current window``
    or ``Connect to host in new window`` and enter a remote location (directory) where you want to start to
-   work. A good place is ``/scratch/antwerpen/???/<userid>``. If you now press the ``Explorer`` button in the
-   toolbar on the left
+   work. A good place is::
+
+        /scratch/antwerpen/xyz/<userid>
+
+   (xyz are the first three digits of your userid, e.g. ``123`` If your userid were ``vsc12345``).
+   For a guest account this would be::
+
+       /scratch/antwerpen/gst/<guestid>
+
+   If you now press the ``Explorer`` button in the toolbar on the left
 
    .. image:: pictures/Explorer_icon.png
 
    the tree view of the remote location you entered is shown.
+
 
 Setting up your remote environment
 ----------------------------------
@@ -95,17 +104,17 @@ Setting up your remote environment
 Open VSCode, and select `View/Terminal` from the menu bar. A window pane with a terminal will open, with
 the chosen location as the current working directory. It is a Linux terminal, because the login-nodes
 of all VSC clusters run Linux as operation system. If you are not familiar with Linux, check out
-[Basic Linux usage](https://docs.vscentrum.be/en/latest/jobs/basic_linux_usage.html?highlight=linux).
+`Basic Linux usage <https://docs.vscentrum.be/en/latest/jobs/basic_linux_usage.html?highlight=linux>`_.
 
 In the terminal enter the following commands::
 
-    > $ module load git
+    > module load git
 
 This command makes the `git` command available. Contrary to PCs, HPC systems do not make all installed
 software directly available. The user must specify which software packages he wants to use by loading
 modules. The command::
 
-    > $ module list
+    >  module list
 
     Currently Loaded Modules:
       1) leibniz/supported   2) git/2.35.1
@@ -116,9 +125,14 @@ Next, we use git to download a git repository that was prepared for this course:
     > git clone https://github.com/etijskens/iip
     ...
 
-and ``dd`` into the ``IIp`` directory::
+and ``cd`` into the ``IIp`` directory::
 
     > cd IIp
+
+One time actions
+^^^^^^^^^^^^^^^^
+
+There is a l
 
 
 

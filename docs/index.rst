@@ -8,6 +8,7 @@ Welcome to micc2's documentation!
    :caption: Contents:
 
    readme
+   authors
 
 ##################
 Indices and tables
