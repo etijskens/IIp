@@ -2,4 +2,4 @@
 Authors
 *******
 
-.. include:: ../AUTHORS.rst
+E.Tijskens - engelbert.tijskens @ uantwerpen.be

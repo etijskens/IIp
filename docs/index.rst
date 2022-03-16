@@ -9,6 +9,7 @@ Welcome to IIP's documentation!
 
    readme
    setup
+   usage
    authors
 
 ##################

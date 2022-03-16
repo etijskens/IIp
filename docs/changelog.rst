@@ -1,5 +1,0 @@
-*******
-History
-*******
-
-.. include:: ../CHANGELOG.rst

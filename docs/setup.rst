@@ -151,17 +151,6 @@ The following Python packages are installed:
 The install location for Python packages is set to ``$VSC_SCRATCH/.local``, instead of the default
 ``$VSC_HOME/.local`` to avoid that the disk quota of ``$VSC_HOME`` are exceeded.
 
-Preparing the environment for a (VSCode) terminal
--------------------------------------------------
-
-Every time you open a new terminal, you must source the ``IIp/bin/iip-env.sh`` script::
-
-    > source $VSC_SCRATCH/IIp/bin/iip-env.sh
-
-If you want this script to be source everytime you login to *Leibniz*, you can add this line to your
-``~/.bash_profile``. We do, however not, recommend this, unless this is really **always** the
-environment you need.
-
 Preparing for Version Control
 -----------------------------
 
@@ -211,7 +200,7 @@ Setting up micc2_
 
 Now that you have a GitHub_ account and a personal acces token, we are ready to set up micc2_,
 to provide it with the necessary information to access your GitHub_ account, and create remote
-repositories automatically, when you start a new project with micc_.
+repositories automatically, when you start a new project with micc2_.
 
 Run the following commands in the VSCode terminal::
 
@@ -261,4 +250,5 @@ can use ``^^`` to abort the setup .
     Paste your GitHub personal access token, or the file location containing it:
     :> ~/the-john-doe.pat
 
-Congratulations, you have completed the setup!
+Congratulations, you have completed the setup! A good next step is to checkout the micc2_
+documentation.
