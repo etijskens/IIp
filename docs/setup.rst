@@ -16,6 +16,9 @@ To view and edit your project directories and files, or execute the scripts and 
 we use Visual Studio Code (VSCode), which is a graphical IDE (integrated developmnent environment).
 This allows for a smoother experience than the standard terminal based access on the cluster.
 
+You might find the `documentation for using the VSC clusters <https://docs.vscentrum.be/en/latest/>`_
+useful.
+
 Setting up your local environment
 ---------------------------------
 
@@ -100,6 +103,10 @@ Press the `+` to create a new SSH Target. You will be prompted to fill in
    .. image:: pictures/Explorer_icon.png
 
    the tree view of the remote location you entered is shown.
+
+On all VSC clusters you have access to three file systems with different properties. You might want to check out the
+`data storage VSC documentation <https://docs.vscentrum.be/en/latest/access/access_and_data_transfer.html#data-storage>`_
+for details.
 
 Setting up your remote environment
 ----------------------------------
