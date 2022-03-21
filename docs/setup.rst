@@ -108,6 +108,16 @@ On all VSC clusters you have access to three file systems with different propert
 `data storage VSC documentation <https://docs.vscentrum.be/en/latest/access/access_and_data_transfer.html#data-storage>`_
 for details.
 
+Connection Trouble shooting
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you fail to connect to *Leibniz*, try to open a terminal (command prompt or powershell in Windows). Add the
+``-v``, ``-vv``, or ``-vvv`` to the ``ssh`` command to debug the ssh connection::
+
+    ssh -v[v[v]] <userid>@login1-leibniz.hpc.uantwerpen.be -i </path/to/your/private-key>
+
+A typical problem under Windows is the ``UNPROTECTED PRIVATE KEY FILE!`` warning. To fix this, check out
+`Windows SSH: Permissions for 'private-key' are too open <https://superuser.com/questions/1296024/windows-ssh-permissions-for-private-key-are-too-open>`_.
+
 Setting up your remote environment
 ----------------------------------
 
