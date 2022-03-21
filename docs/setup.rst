@@ -118,6 +118,8 @@ If you fail to connect to *Leibniz*, try to open a terminal (command prompt or p
 A typical problem under Windows is the ``UNPROTECTED PRIVATE KEY FILE!`` warning. To fix this, check out
 `Windows SSH: Permissions for 'private-key' are too open <https://superuser.com/questions/1296024/windows-ssh-permissions-for-private-key-are-too-open>`_.
 
+Another typical problem under Windows is the 
+
 Setting up your remote environment
 ----------------------------------
 
