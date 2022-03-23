@@ -7,7 +7,7 @@ Package iip
 Top-level package for iip.
 """
 
-__version__ = "0.1.2"
+__version__ = "0.2.0"
 
 
 def hello(who='world'):
