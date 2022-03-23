@@ -108,32 +108,49 @@ On all VSC clusters you have access to three file systems with different propert
 `data storage VSC documentation <https://docs.vscentrum.be/en/latest/access/access_and_data_transfer.html#data-storage>`_
 for details.
 
-Connection Trouble shooting
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Connection Troubleshooting
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ssh debugging
+"""""""""""""
 If you fail to connect to *Leibniz*, try to open a terminal (command prompt or powershell in Windows). Add the
 ``-v``, ``-vv``, or ``-vvv`` to the ``ssh`` command to debug the ssh connection::
 
-    ssh -v[v[v]] <userid>@login1-leibniz.hpc.uantwerpen.be -i </path/to/your/private-key>
+        ssh -v[v[v]] <userid>@login1-leibniz.hpc.uantwerpen.be -i </path/to/your/private-key>
 
+This produces a lot more output that may help you to pinpoint the origin of the failure. This certainly
+helps when the problem is the location of keys or configuration files.
+
+Unprotected private key file error
+""""""""""""""""""""""""""""""""""
 A typical problem under Windows is the ``UNPROTECTED PRIVATE KEY FILE!`` warning. To fix this, check out
 `Windows SSH: Permissions for 'private-key' are too open <https://superuser.com/questions/1296024/windows-ssh-permissions-for-private-key-are-too-open>`_.
 
-Another typical problem under Windows is the 
+Invalid format error
+""""""""""""""""""""
+Another typical problem under Windows is the ``Invalid format`` error, which arises when
+the user generated a SSH key pair using ``PuTTY``, and forgot to convert the key to OpenSSH format.
+Check out `Converting PuTTY keys to OpenSSH format <https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/generating_keys_with_putty.html?highlight=putty#converting-putty-keys-to-openssh-format>`_
+to remedy this.
 
 Setting up your remote environment
 ----------------------------------
 
+Once you are able to connect, you can setup your environment on *Leibniz*.
+
 Open VSCode, and select `View/Terminal` from the menu bar. A window pane with a terminal will open, with
 the chosen location as the current working directory. It is a Linux terminal, because the login-nodes
-of all VSC clusters run Linux as operation system. If you are not familiar with Linux, check out
+of all VSC clusters run the Linux operation system (CentOS). If you are not familiar with Linux, check out
+the VSC documentation
 `Basic Linux usage <https://docs.vscentrum.be/en/latest/jobs/basic_linux_usage.html?highlight=linux>`_.
 
-In the terminal enter the following commands::
+In the terminal, enter the following command::
 
     > module load git
 
-This command makes the `git` command available. Contrary to PCs, HPC systems do not make all installed
-software directly available. The user must specify which software packages he wants to use by loading
+This command makes the git_ command available. Contrary to PCs, HPC systems do not make all installed
+software directly available. There are too many packages, and different versions might have conflicting
+requirements. The user must specify which software packages he wants to use by loading
 modules. The command::
 
     >  module list
@@ -141,8 +158,14 @@ modules. The command::
     Currently Loaded Modules:
       1) leibniz/supported   2) git/2.35.1
 
-lists all loaded modules. Usually the listed entries offer information on the version of the package.
-Next, we use git to download a git repository that was prepared for this course::
+lists all loaded modules. Module ``1) leibniz/supported`` is a general module that enables access to all
+modules installed for *Leibniz*. Module ``2) git/2.35.1`` is the ``git`` module we just loaded. Generally, the
+default version of a module is the most recently installed one, which in this case happens to be 2.35.1::
+
+    > git --version
+    git version 2.35.1
+
+Next, we use git_ to download a GitHub_ repository that was prepared for this course::
 
     > git clone https://github.com/etijskens/IIp
     Cloning into 'IIp'...
@@ -169,6 +192,40 @@ The following Python packages are installed:
 
 The install location for Python packages is set to ``$VSC_SCRATCH/.local``, instead of the default
 ``$VSC_HOME/.local`` to avoid that the disk quota of ``$VSC_HOME`` are exceeded.
+
+Solving Disk quota exceeded due to ``.vscode-server`` getting too big
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When you start working remotely, ``vscode`` creates a hidden directory ``.vscode-server`` in
+your ``$VSC_HOME`` directory. This directory may sometimes grow too large which in view of the
+limited disk quota on ``$VSC_HOME`` (3 GB) may cause trouble. When you connect to a login node
+on one of the VSC clusters, you always get a welcome message and a summary of your disk usage.
+If you get a ``!!! warning: quota exceeded`` message, check the size of the ``.vscode-server``
+directory with this command::
+
+    > du -sh ~/.vscode-server
+    1.3G	/user/antwerpen/201/vsc20170/.vscode-server/
+
+If the size is significant when compared to the size quota on ``$VSC_HOME``, which usually
+amounts to 3 GB, you might want to move the ``.vscode-server`` to another file system, e.g.
+``$VSC_DATA`` or ``$VSC_SCRATCH``, and create a symbolic link for it in your home directory::
+
+    > mv ~/.vscode-server $VSC_DATA
+    > ln -s $VSC_DATA/.vscode-server ~/.vscode-server
+
+You can check whether this succeeded by running::
+
+    > ls -al .vscode-server
+    lrwxrwxrwx 1 vsc20170 vsc20170 44 Nov  9 16:26 .vscode-server -> /data/antwerpen/201/vsc20170/.vscode-server/
+
+This shows the existence of a symbolic link file ``.vscode-server`` in your home directory,
+whichs redirects, as indicated by the ``->`` arrow, to the actual file at
+``/data/antwerpen/201/vsc20170/.vscode-server/``.
+
+If, however the reported size is small relative to the quota for your ``$VSC_HOME`` (3 GB)
+then some other directory/file is causing the issue. Note that ``$VSC_HOME`` is not meant to
+store your workspaces, data, ... (see
+`Where can I store what kind of data <https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/where_can_i_store_what_kind_of_data.html>`_).
 
 Preparing for Version Control
 -----------------------------
