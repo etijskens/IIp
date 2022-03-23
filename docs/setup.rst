@@ -9,8 +9,8 @@ Setting up your development environment
 We will develop our Parallel Programming projects on the VSC Cluster *Leibniz*, which is hosted by UAntwerpen.
 To access *Leibniz* you need either
 
-* a VSC account, or a
-* guest account.
+* a VSC account (``vscXXYYY``) , or
+* a guest account (``guestYYY``).
 
 To view and edit your project directories and files, or execute the scripts and programs you write,
 we use Visual Studio Code (VSCode), which is a graphical IDE (integrated developmnent environment).
@@ -26,21 +26,48 @@ Install a SSH client
 ^^^^^^^^^^^^^^^^^^^^
 
 To make a connection with a remote machine (c.q. *Leibniz*), you need a supported SSH client.
-This comes pre-installed on macOS, for Windows and Linux, check `here <https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client>`_.
+This comes pre-installed on macOS. For Windows and Linux, check
+`this <https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client>`_.
 
 Install and setup Visual Studio Code for remote development with Python, C++ and Fortran
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Install VSCode (Visual Studio Code) from https://code.visualstudio.com/download for your operating system.
-Open VSCode, press the ``Extensions`` button
+Install VSCode (Visual Studio Code) from https://code.visualstudio.com/download for your operating
+system. Then, open VSCode. On the left you see a vertical toolbar with some buttons:
 
-.. image:: pictures/Extensions_icon.png
+.. _vscode-toolbar:
 
-in the toolbar on the left, search for the items below, and install them.
+.. figure:: pictures/vscode-toolbar.png
+   :scale: 20%
 
-In the figure below we searched for all extensions with a name containing 'Remote'.
+   The VSCode_ toolbar
 
-.. image:: pictures/Extensions_Marketplace.png
+Each of the buttons opens a correspondig window pane for a specific task.
+
+* The ``Explorer`` pane provides a directory view of the current workspace, which may be local
+  or remote (we will only work with remote workspaces on *Leibniz*).
+* The ``Search`` pane is for searching in that workspace.
+* The ``Source Control`` pane lets you manipulate the git_ repository in your project.
+* The ``Run and Debug`` pane is for running and debugging programs and scripts. (This we will not
+  use because its functionally for working remotely is a bit limited and we will need to work
+  around that).
+* The ``Extension`` lets you install and manage VSCode_ extensions.
+* Finally, the ``Remote Explorer`` button is at this point usually not available yet, as that
+  VSCode_ comes with the ``Remote-SSH`` extension, which we still have to install. The
+  corresponding pane manages all the different remote workspaces on the remote locations you
+  have been working on. Here, you select the remote workspace, and in the ``Explorer`` pane
+  you view and manipulate its directory tree.
+
+Press the ``Extensions`` button to access the Extensions pane, search for the items below,
+and install them. In the figure below we searched for all extensions with a name containing
+s'Remote'.
+
+.. _Extensions-pane:
+
+.. figure:: pictures/Extensions_Marketplace.png
+   :scale: 45%
+
+   The ``Extensions`` pane.
 
 We need these VSCode extensions (plugins):
 
@@ -59,17 +86,21 @@ We need these VSCode extensions (plugins):
 * Better C++ Syntax
 * Modern Fortran
 
+Obviously, you are free to explore other VSCode_ extensions - that's what learning is about!
+
 Connecting to *Leibniz* in VSCode
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Next, we must create an `SSH Target` to establish a connection to *Leibniz*. In the vertical toolbar on the left,
-press the ``Remote Explorer`` button,
+Next, we must create an ``SSH Target`` to establish a connection to *Leibniz*. In the toolbar on the left,
+press the ``Remote Explorer`` button (see :ref:`vscode-toolbar`),
+and make sure the dropdown menu next to ``Remote Explorer`` shows ``SSH Targets``:
 
-.. image:: pictures/Remote_Explorer_icon.png
+.. _Remote-Explorer-pane:
 
-and make sure the dropdown menu next toe ``Remote Explorer`` shows ``ß``:
+.. figure:: pictures/SSH_Targets.png
+   :scale: 45%
 
-.. image:: pictures/SSH_Targets.png
+   The Remote Explorer pane.
 
 Press the `+` to create a new SSH Target. You will be prompted to fill in
 
@@ -85,6 +116,7 @@ Press the `+` to create a new SSH Target. You will be prompted to fill in
    A new entry with the name `login1-leibniz.hpc.uantwerpen.be` will appear in the `SSH Targets` list.
 
    .. image:: pictures/SSH_Targets_2.png
+      :scale: 45%
 
 4. To establish a connection you right-click on the new entry, choose ``Connect to host in current window``
    or ``Connect to host in new window`` and enter a remote location (directory) where you want to start to
@@ -92,17 +124,19 @@ Press the `+` to create a new SSH Target. You will be prompted to fill in
 
         /scratch/antwerpen/<xyz>/<userid>
 
-   (<xyz> are the first three digits of your userid, e.g. ``123`` If your userid were ``vsc12345``).
+   (<xyz> are the first three digits of your userid, e.g. ``123`` if your userid were ``vsc12345``).
    For a guest account this would be::
 
        /scratch/antwerpen/gst/<guestid>
 
-   After Pressing ``Open`` you may select a subdirectory to start working in.
-   If you now press the ``Explorer`` button in the toolbar on the left
-
-   .. image:: pictures/Explorer_icon.png
-
-   the tree view of the remote location you entered is shown.
+   After Pressing ``Open`` you may select a subdirectory to start working in. If you now press the
+   ``Explorer`` button in :ref:`vsc-toolbar`the tree view of the remote location you entered is shown.
+   Here, you can add, delete, rename files, etc. If you double click on a file, its opens in the
+   editor pane. Note that changes to files are not automatically saved to the remote location. You
+   must explicitly save them before the changes can have any effect. That is a very nice feature of
+   VSCode_: it is a practical graphical editor for remote files, which is aware of the language your
+   are programming in (depending on the extensions you install) and can do syntax coloring, automatic
+   indentation, syntax checking, code completion, and so on.
 
 On all VSC clusters you have access to three file systems with different properties. You might want to check out the
 `data storage VSC documentation <https://docs.vscentrum.be/en/latest/access/access_and_data_transfer.html#data-storage>`_
@@ -116,7 +150,7 @@ ssh debugging
 If you fail to connect to *Leibniz*, try to open a terminal (command prompt or powershell in Windows). Add the
 ``-v``, ``-vv``, or ``-vvv`` to the ``ssh`` command to debug the ssh connection::
 
-        ssh -v[v[v]] <userid>@login1-leibniz.hpc.uantwerpen.be -i </path/to/your/private-key>
+    ssh -v[v[v]] <userid>@login1-leibniz.hpc.uantwerpen.be -i </path/to/your/private-key>
 
 This produces a lot more output that may help you to pinpoint the origin of the failure. This certainly
 helps when the problem is the location of keys or configuration files.
@@ -165,8 +199,10 @@ default version of a module is the most recently installed one, which in this ca
     > git --version
     git version 2.35.1
 
-Next, we use git_ to download a GitHub_ repository that was prepared for this course::
+Next, we ``cd``  into the scratch file system and use git_ to download (clone in git_ language) the
+IIp_ GitHub_ repository that was prepared for this course::
 
+    > cd $VSC_SCRATCH
     > git clone https://github.com/etijskens/IIp
     Cloning into 'IIp'...
     remote: Enumerating objects: 67, done.
@@ -175,12 +211,11 @@ Next, we use git_ to download a GitHub_ repository that was prepared for this co
     remote: Total 67 (delta 10), reused 65 (delta 8), pack-reused 0
     Unpacking objects: 100% (67/67), done.
 
-(The output may vary as the IIp project is still evolving)
-Then, ``cd`` into the ``IIp`` directory and source the ``iip-installs.sh`` script to install some Python
+(The output may vary as the IIp project is still evolving).
+Then, source its ``iip-installs.sh`` script to install some Python
 packages that we will need for our work and which are not pre-installed on the cluster::
 
-    > cd IIp
-    > source ./bin/iip-installs.sh
+    > source ./IIp/bin/iip-installs.sh
     ...
 
 The following Python packages are installed:
@@ -193,11 +228,45 @@ The following Python packages are installed:
 The install location for Python packages is set to ``$VSC_SCRATCH/.local``, instead of the default
 ``$VSC_HOME/.local`` to avoid that the disk quota of ``$VSC_HOME`` are exceeded.
 
+As the IIp_ projects is still evolving, you might want to update it from time to time::
+
+    > cd $VSC_SCRATCH/IIp
+    > git pull
+    remote: Enumerating objects: 49, done.
+    remote: Counting objects: 100% (49/49), done.
+    remote: Compressing objects: 100% (16/16), done.
+    remote: Total 39 (delta 27), reused 32 (delta 20), pack-reused 0
+    Unpacking objects: 100% (39/39), done.
+    From https://github.com/etijskens/IIp
+       b34e552..a5c19e3  main       -> origin/main
+    Updating b34e552..a5c19e3
+    Fast-forward
+     SETUP.rst             |  0
+     docs/authors.rst      |  2 +-
+     docs/changelog.rst    |  5 -----
+     docs/conf.py          | 24 ++++++++++++------------
+     docs/index.rst        |  1 +
+     docs/installation.rst |  9 ---------
+     docs/setup.rst        | 96 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------
+     docs/usage.rst        | 23 +++++++++++++++++------
+     iip/__init__.py       |  2 +-
+     pyproject.toml        |  2 +-
+     10 files changed, 114 insertions(+), 50 deletions(-)
+     delete mode 100644 SETUP.rst
+     delete mode 100644 docs/changelog.rst
+     delete mode 100644 docs/installation.rst
+
+This pulls the latest changes in the remote GitHub_ IIp_ repository into the your ``IIp`` repository
+on *Leibniz*. If you already have the latest version, ``git pull`` will tell you so::
+
+    > git pull
+    Already up-to-date.
+
 Solving Disk quota exceeded due to ``.vscode-server`` getting too big
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When you start working remotely, ``vscode`` creates a hidden directory ``.vscode-server`` in
-your ``$VSC_HOME`` directory. This directory may sometimes grow too large which in view of the
+your ``$VSC_HOME`` directory. This directory may sometimes grow large which in view of the
 limited disk quota on ``$VSC_HOME`` (3 GB) may cause trouble. When you connect to a login node
 on one of the VSC clusters, you always get a welcome message and a summary of your disk usage.
 If you get a ``!!! warning: quota exceeded`` message, check the size of the ``.vscode-server``
@@ -236,7 +305,7 @@ and remote. So, even if you loose your machine, you wont loose your work. At any
 you may switch back to earlier versions and continue from there.
 
 We will use git_ for version control, and put our remote repositories on GitHub_. That is all free,
-but you need to acquire a GitHub_ account.
+but you need to create a GitHub_ account.
 
 Creating a GitHub_ account
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -274,7 +343,7 @@ repositories for new projects. Follow
 Setting up micc2_
 ^^^^^^^^^^^^^^^^^
 
-Now that you have a GitHub_ account and a personal acces token, we are ready to set up micc2_,
+Now that you have a GitHub_ account and a personal access token, we are ready to set up micc2_,
 to provide it with the necessary information to access your GitHub_ account, and create remote
 repositories automatically, when you start a new project with micc2_.
 
