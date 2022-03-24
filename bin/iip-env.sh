@@ -16,11 +16,11 @@ module load git
 module load gh
 module load CMake
 
-# Select the Python version of your choice. However, make sure that the
-# build environment of that Python environment is also loaded.
-# In addition, you might need a module with pre-installed Python packages
-# useful for scientific computing, such as numpy, mpi4py, matplotlib, scipy,
-# sympy ...
+# Select the Python version of your choice.
+# However, if you change the Python module,
+#   . make sure that the  build environment of that Python environment is also loaded
+#   . you might need a module with pre-installed Python packages useful for scientific
+#     computing, such as numpy, mpi4py, matplotlib, scipy, sympy ...
 module load Python
 
 module list
