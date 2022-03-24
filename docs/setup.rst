@@ -19,6 +19,8 @@ This allows for a smoother experience than the standard terminal based access on
 You might find the `documentation for using the VSC clusters <https://docs.vscentrum.be/en/latest/>`_
 useful.
 
+.. _setup-local:
+
 Setting up your local environment
 ---------------------------------
 
@@ -67,7 +69,7 @@ s'Remote'.
 .. figure:: pictures/Extensions_Marketplace.png
    :scale: 45%
 
-   The ``Extensions`` pane.
+   The *Extensions* pane.
 
 We need these VSCode extensions (plugins):
 
@@ -100,52 +102,72 @@ and make sure the dropdown menu next to ``Remote Explorer`` shows ``SSH Targets`
 .. figure:: pictures/SSH_Targets.png
    :scale: 45%
 
-   The Remote Explorer pane.
+   The *Remote Explorer* pane.
 
 Press the `+` to create a new SSH Target. You will be prompted to fill in
 
-1. The ssh command to connect with::
+Setting up an *SSH Target*
+""""""""""""""""""""""""""
+
+The ssh command to connect with::
 
     > ssh <userid>@login1-leibniz.hpc.uantwerpen.be -i </path/to/your/private-key>
 
-   Where ``<userid>`` is the userid of your VSC account, or guest account, ``login1-leibniz.hpc.uantwerpen.be``
-   is the name of login-node 1 on *Leibniz* and ``</path/to/your/private-key>`` is the full path to the **private**
-   key that you created for your account. (Note that on windows you must use backslashes as the path separator).
+Where ``<userid>`` is the userid of your VSC account, or guest account, ``login1-leibniz.hpc.uantwerpen.be``
+is the name of login-node 1 on *Leibniz* and ``</path/to/your/private-key>`` is the full path to the **private**
+key that you created for your account. (Note that on windows you must use backslashes as the path separator).
 
-3. Next, it with will prompt you for the location of the ssh config file. The default location is generally ok.
-   A new entry with the name `login1-leibniz.hpc.uantwerpen.be` will appear in the `SSH Targets` list.
+Next, it with will prompt you for the location of the ssh config file. The default location is generally ok.
+A new entry with the name `login1-leibniz.hpc.uantwerpen.be` will appear in the `SSH Targets` list.
 
-   .. image:: pictures/SSH_Targets_2.png
-      :scale: 45%
+.. image:: pictures/SSH_Targets_2.png
+   :scale: 45%
 
-4. To establish a connection you right-click on the new entry, choose ``Connect to host in current window``
-   or ``Connect to host in new window`` and enter a remote location (directory) where you want to start to
-   work. A good place is::
+.. _Connecting:
 
-        /scratch/antwerpen/<xyz>/<userid>
+Connecting to an *SSH Target*
+"""""""""""""""""""""""""""""
 
-   (<xyz> are the first three digits of your userid, e.g. ``123`` if your userid were ``vsc12345``).
-   For a guest account this would be::
+To establish a connection you right-click on the SSH Target in the *Remote Explorer* pane ane choose
+``Connect to host in current window`` or ``Connect to host in new window`` and enter a remote location
+(directory) where you want to work. A good place is your data or scratch file system::
 
-       /scratch/antwerpen/gst/<guestid>
+    /data/antwerpen/<xyz>/<userid>
+    /scratch/antwerpen/<xyz>/<userid>
 
-   After Pressing ``Open`` you may select a subdirectory to start working in. If you now press the
-   ``Explorer`` button in :ref:`vsc-toolbar`the tree view of the remote location you entered is shown.
-   Here, you can add, delete, rename files, etc. If you double click on a file, its opens in the
-   editor pane. Note that changes to files are not automatically saved to the remote location. You
-   must explicitly save them before the changes can have any effect. That is a very nice feature of
-   VSCode_: it is a practical graphical editor for remote files, which is aware of the language your
-   are programming in (depending on the extensions you install) and can do syntax coloring, automatic
-   indentation, syntax checking, code completion, and so on.
+(<xyz> are the first three digits of your userid, e.g. ``123`` if your userid were ``vsc12345``).
+For a guest account this would be::
 
-On all VSC clusters you have access to three file systems with different properties. You might want to check out the
-`data storage VSC documentation <https://docs.vscentrum.be/en/latest/access/access_and_data_transfer.html#data-storage>`_
-for details.
+   /data/antwerpen/gst/<guestid>
+   /scratch/antwerpen/gst/<guestid>
 
-Connection Troubleshooting
+.. note::
+    On all VSC clusters you have access to three file systems with different properties. You might
+    want to check out the `data storage VSC documentation <https://docs.vscentrum.be/en/latest/access/access_and_data_transfer.html#data-storage>`_
+    for details.
+
+The central pane will then show you a 'Get started' window. Press the ``Open ...`` button and select the
+directory where you would want to start your work. Typically, this would be a *workspace* directory where
+a some of your projects live, or a project directory.
+
+.. _get-started:
+
+.. figure:: pictures/open.png
+   :scale: 20%
+
+   The *Get started* window.
+
+Finally, press the ``Explorer`` button in :ref:`vscode-toolbar` to see the tree view of the your
+remote working directory. Here, you can add, delete, rename files, etc. If you double click on a
+file, the file is opened in the editor pane. The VSCode_ editor is a modern graphical editor with
+lots of practical features: it is aware of the language you are programming in (you probably need
+to install some extension) and can do syntax coloring, automatic indentation, on the fly syntax
+checking, code completion, and so on.
+
+SSH Target Troubleshooting
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-ssh debugging
+Ssh debugging
 """""""""""""
 If you fail to connect to *Leibniz*, try to open a terminal (command prompt or powershell in Windows). Add the
 ``-v``, ``-vv``, or ``-vvv`` to the ``ssh`` command to debug the ssh connection::
@@ -167,10 +189,52 @@ the user generated a SSH key pair using ``PuTTY``, and forgot to convert the key
 Check out `Converting PuTTY keys to OpenSSH format <https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/generating_keys_with_putty.html?highlight=putty#converting-putty-keys-to-openssh-format>`_
 to remedy this.
 
+Solving *Disk quota exceeded* due to ``.vscode-server`` getting too big
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+When you start working remotely, ``vscode`` creates a hidden directory ``.vscode-server`` in
+your ``$VSC_HOME`` directory. This directory may sometimes grow large, which in due of the
+limited disk quota on ``$VSC_HOME`` (3 GB) may cause trouble. When you connect to a login node
+on one of the VSC clusters, you always get a welcome message and a summary of your disk usage.
+If you get a ``!!! warning: quota exceeded`` message, check the size of the ``.vscode-server``
+directory with this command::
+
+    > du -sh ~/.vscode-server
+    1.3G	/user/antwerpen/201/vsc20170/.vscode-server/
+
+If the size is significant when compared to the size quota on ``$VSC_HOME``, which usually
+amounts to 3 GB, you might want to move the ``.vscode-server`` to another file system, e.g.
+``$VSC_DATA`` or ``$VSC_SCRATCH``, and create a symbolic link for it in your home directory::
+
+    > mv ~/.vscode-server $VSC_DATA
+    > ln -s $VSC_DATA/.vscode-server ~/.vscode-server
+
+You can check whether this succeeded by running::
+
+    > ls -al .vscode-server
+    lrwxrwxrwx 1 vsc20170 vsc20170 44 Nov  9 16:26 .vscode-server -> /data/antwerpen/201/vsc20170/.vscode-server/
+
+This shows the existence of a symbolic link file ``.vscode-server`` in your home directory,
+whichs redirects, as indicated by the ``->`` arrow, to the actual file at
+``/data/antwerpen/201/vsc20170/.vscode-server/``.
+
+If, however the reported size is small relative to the quota for your ``$VSC_HOME`` (3 GB)
+then some other directory/file is causing the issue. Note that ``$VSC_HOME`` is not meant to
+store your workspaces, data, ... (see
+`Where can I store what kind of data <https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/where_can_i_store_what_kind_of_data.html>`_).
+
+.. _setup-remote:
+
 Setting up your remote environment
 ----------------------------------
 
+Clone the ``IIp`` repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Once you are able to connect, you can setup your environment on *Leibniz*.
+
+``IIp`` is a GitHub_ repository that contains the documentation you are reading
+right now, as well as some useful bash scripts to help you to set up your environment
+correctly and automate some tasks.
 
 Open VSCode, and select `View/Terminal` from the menu bar. A window pane with a terminal will open, with
 the chosen location as the current working directory. It is a Linux terminal, because the login-nodes
@@ -211,7 +275,9 @@ IIp_ GitHub_ repository that was prepared for this course::
     remote: Total 67 (delta 10), reused 65 (delta 8), pack-reused 0
     Unpacking objects: 100% (67/67), done.
 
-(The output may vary as the IIp project is still evolving).
+(The output may vary as the IIp project is still evolving). The ``IIp`` repository contains the documentation
+you are reading here, as well as the some useful scripts to setup your environment.
+
 Then, source its ``iip-installs.sh`` script to install some Python
 packages that we will need for our work and which are not pre-installed on the cluster::
 
@@ -220,13 +286,19 @@ packages that we will need for our work and which are not pre-installed on the c
 
 The following Python packages are installed:
 
-* micc2_: a package to manage our project. Setup of a versatile project structure, with hooks
+* Micc2_: a package to manage our project. Setup of a versatile project structure, with hooks
   for documentation and testing, version management, setup of local and remote git repos, building
   Python modules from C++ or Fortran code.
-* numba_: accelerating Python functions.
+* Numba_: accelerating Python functions.
 
 The install location for Python packages is set to ``$VSC_SCRATCH/.local``, instead of the default
 ``$VSC_HOME/.local`` to avoid that the disk quota of ``$VSC_HOME`` are exceeded.
+
+.. note::
+
+    This ``iip-install.sh`` script installs Micc2_ and Numba_ in the current Python environment **only**,
+    which``iip-install.sh`` sets by sourcing the ``iip-env.sh`` script. If at a later time you need to
+    change to another Python distribution, you must modify the ``iip-env.sh`` script and rerun ``iip-env.sh``.
 
 As the IIp_ projects is still evolving, you might want to update it from time to time::
 
@@ -262,42 +334,8 @@ on *Leibniz*. If you already have the latest version, ``git pull`` will tell you
     > git pull
     Already up-to-date.
 
-Solving Disk quota exceeded due to ``.vscode-server`` getting too big
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-When you start working remotely, ``vscode`` creates a hidden directory ``.vscode-server`` in
-your ``$VSC_HOME`` directory. This directory may sometimes grow large which in view of the
-limited disk quota on ``$VSC_HOME`` (3 GB) may cause trouble. When you connect to a login node
-on one of the VSC clusters, you always get a welcome message and a summary of your disk usage.
-If you get a ``!!! warning: quota exceeded`` message, check the size of the ``.vscode-server``
-directory with this command::
-
-    > du -sh ~/.vscode-server
-    1.3G	/user/antwerpen/201/vsc20170/.vscode-server/
-
-If the size is significant when compared to the size quota on ``$VSC_HOME``, which usually
-amounts to 3 GB, you might want to move the ``.vscode-server`` to another file system, e.g.
-``$VSC_DATA`` or ``$VSC_SCRATCH``, and create a symbolic link for it in your home directory::
-
-    > mv ~/.vscode-server $VSC_DATA
-    > ln -s $VSC_DATA/.vscode-server ~/.vscode-server
-
-You can check whether this succeeded by running::
-
-    > ls -al .vscode-server
-    lrwxrwxrwx 1 vsc20170 vsc20170 44 Nov  9 16:26 .vscode-server -> /data/antwerpen/201/vsc20170/.vscode-server/
-
-This shows the existence of a symbolic link file ``.vscode-server`` in your home directory,
-whichs redirects, as indicated by the ``->`` arrow, to the actual file at
-``/data/antwerpen/201/vsc20170/.vscode-server/``.
-
-If, however the reported size is small relative to the quota for your ``$VSC_HOME`` (3 GB)
-then some other directory/file is causing the issue. Note that ``$VSC_HOME`` is not meant to
-store your workspaces, data, ... (see
-`Where can I store what kind of data <https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/where_can_i_store_what_kind_of_data.html>`_).
-
 Preparing for Version Control
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A Version Control System (VCS) is extremely useful for software development. Among others, it
 provides you with a backup of every commited version of your work. This backup can be both local
@@ -308,17 +346,19 @@ We will use git_ for version control, and put our remote repositories on GitHub_
 but you need to create a GitHub_ account.
 
 Creating a GitHub_ account
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""
 
 Go to GitHub_, enter your e-mail address and click “Sign up for GitHub”:
 
 .. image:: pictures/github.png
+   :scale: 20%
 
 You will then be prompted to choose your username and a password. Then, click ''Verify” and solve
 the puzzle. A button “Create account” will appear, press it. You will receive an e-mail at the e-mail
 address you provided with instructions to activate your account. Here's a screenshot:
 
 .. image:: pictures/createGitHubAccount.png
+   :scale: 20%
 
 You also need a "github personal access token" for micc2_ to be able to automatically create remote
 repositories for new projects. Follow
@@ -341,21 +381,14 @@ repositories for new projects. Follow
 * Skip point 10.
 
 Setting up micc2_
-^^^^^^^^^^^^^^^^^
+"""""""""""""""""
 
 Now that you have a GitHub_ account and a personal access token, we are ready to set up micc2_,
 to provide it with the necessary information to access your GitHub_ account, and create remote
 repositories automatically, when you start a new project with micc2_.
 
-Run the following commands in the VSCode terminal::
-
-    > source $VSC_SCRATCH/iip/bin/iip-env.sh
-
-This command is only needed if you just started a new terminal and the environment was not yet
-prepared. Next, run ``micc2 setup``, supplying the data asked for after the ``:>`` prompt. You
-can use ``^^`` to abort the setup .
-
-.. code-block::
+Run the following command in the VSCode terminal and provide the information asked for. You may
+abort the procedure by entering ``^^``::
 
     > micc2 setup
 
@@ -395,5 +428,7 @@ can use ``^^`` to abort the setup .
     Paste your GitHub personal access token, or the file location containing it:
     :> ~/the-john-doe.pat
 
-Congratulations, you have completed the setup! A good next step is to checkout the micc2_
-documentation.
+If you get an error ``bash: micc2: command not found``, you probably forgot to::
+
+    > source $VSC_SCRATCH/iip/bin/iip-env.sh
+
