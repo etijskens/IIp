@@ -10,6 +10,7 @@ Welcome to IIP's documentation!
    readme
    setup
    usage
+   project_work
    authors
 
 ##################
