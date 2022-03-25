@@ -12,8 +12,13 @@ fi
 # Retrieve the path of the directory containing this script.
 my_path=$(dirname "$BASH_SOURCE")
 
-# setup the environment (assumed to be run from the IIp project directory)
-source $my_path/env.sh
+# setup the environment (assumed to be run from the IIp project directory) forwarding any command line arguments
+source $my_path/iip-env.sh $@
+if [ $? -eq 0 ] 
+then 
+    pip install --user et-micc2 numba
+else
+    echo "Error in iip-env.sh: nothing installed." 
+fi
 
-pip install --user et-micc2 numba
 

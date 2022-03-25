@@ -11,6 +11,41 @@ then
     exit 127
 fi
 
+#-------------------------------------------------------------------------------
+# FUNCTIONS
+#-------------------------------------------------------------------------------
+# Help - Display help for this script.
+Help()
+{
+  echo "Set up micc2 environment."
+  echo
+  echo "Syntax: source iip-env.sh [-p python_module]"
+  echo "p <python_module>: load Python module <python_module> instead of the default Python module."
+  echo "h  Print this Help."
+  echo
+  exit 
+}
+#-------------------------------------------------------------------------------
+# start of main script
+#-------------------------------------------------------------------------------
+# handle arguments
+if [ -z $1 ]
+then 
+    python_module="Python"
+else
+    if [ "$1" == "-h" ] || [ "$1" == "--help" ] || [[ $1 == -* ]]
+    then
+        echo "usage: source iip-env.sh [ -h | --help | python_module_to_load ]"
+        return 1
+    else
+        python_module=$1
+    fi
+fi
+
+# Start from a clean environment:
+module purge
+module load $VSC_INSTITUTE_CLUSTER/supported
+
 # load recent versions of git, gh, and CMake for micc2
 module load git
 module load gh
@@ -21,7 +56,7 @@ module load CMake
 #   . make sure that the  build environment of that Python environment is also loaded
 #   . you might need a module with pre-installed Python packages useful for scientific
 #     computing, such as numpy, mpi4py, matplotlib, scipy, sympy ...
-module load Python
+module load ${python_module}
 
 module list
 
@@ -31,3 +66,4 @@ module list
 export PYTHONUSERBASE=$VSC_SCRATCH/.local
 # adjust the PATH such that installed apps are available.
 export PATH=$PYTHONUSERBASE/bin:$PATH
+
