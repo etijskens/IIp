@@ -297,8 +297,11 @@ The install location for Python packages is set to ``$VSC_SCRATCH/.local``, inst
 .. note::
 
     This ``iip-install.sh`` script installs Micc2_ and Numba_ in the current Python environment **only**,
-    which``iip-install.sh`` sets by sourcing the ``iip-env.sh`` script. If at a later time you need to
-    change to another Python distribution, you must modify the ``iip-env.sh`` script and rerun ``iip-env.sh``.
+    which``iip-install.sh`` sets by sourcing the ``iip-env.sh`` script. Both scripts however accept an
+    optional name of module with the Python distribution you wantm to work with::
+
+        > source ./bin/iip-install.sh IntelPython3 # calls 'source ./bin/iip-install.sh IntelPython3`
+
 
 As the IIp_ projects is still evolving, you might want to update it from time to time::
 
