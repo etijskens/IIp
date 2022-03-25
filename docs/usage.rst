@@ -37,6 +37,26 @@ prepare your terminal environment for developing Python projects with Micc2_::
 (If you did not clone the IIp repository as described in :ref:`setup-remote` the path may be
 different).
 
+This script uses the default ``Python`` module for Leibiz, at the time of writing ``Python/3.8.3-intel-2020a``.
+You might opt for a different Python distribution, e.g ``Python/2.7.16-intel-2019b``, or ``IntelPython3``, by
+adding it as a command line argument::
+
+    > source $VSC_SCRATCH/IIp/bin/iip-env.sh Python/2.7.16-intel-2019b
+    Python 2.7 is no longer developed and will not receive any further patches as of
+    the end of 2019. Moreover, more and more packages drop Python 2.7 support and
+    only support Python 3.5 and up, or even 3.6 or 3.7 as the minimal version.
+    For these reasons, we can no longer maintain and support Python 2.7 on the
+    clusters in future toolchains. This will likely be the last Python 2.7 module
+    on the cluster. Hence we encourage all users to swicht to newer versions and
+    modify their code where needed as soon as possible. See
+    https://docs.python.org/3/howto/pyporting.html
+
+    Currently Loaded Modules:
+      1) leibniz/supported   5) GCCcore/8.3.0                  9) Tcl/8.6.9-intel-2019b      13) HDF5/1.8.21-intel-2019b-MPI
+      2) git/2.35.1          6) binutils/2.32-GCCcore-8.3.0   10) X11/2019b-GCCcore-8.3.0    14) METIS/5.1.0-intel-2019b-i32-fp64
+      3) gh/2.5.2            7) intel/2019b                   11) Tk/8.6.9-intel-2019b       15) SuiteSparse/4.5.6-intel-2019b-METIS-5.1.0
+      4) CMake/3.11.1        8) baselibs/2019b-GCCcore-8.3.0  12) SQLite/3.29.0-intel-2019b  16) Python/2.7.16-intel-2019b
+
 If you want this script to be sourced automatically whenever you login to *Leibniz*, you can add
 this command to your ``~/.bash_profile``. We do, however not, recommend this, unless this is really
 **always** the environment you need.
