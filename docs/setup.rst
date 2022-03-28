@@ -12,6 +12,8 @@ To access *Leibniz* you need either
 * a VSC account (``vscXXYYY``) , or
 * a guest account (``guestYYY``).
 
+If you do not have an account yet, generate a SSH key pair (:ref:`generate-ssh-key-pair`)
+
 To view and edit your project directories and files, or execute the scripts and programs you write,
 we use Visual Studio Code (VSCode), which is a graphical IDE (integrated developmnent environment).
 This allows for a smoother experience than the standard terminal based access on the cluster.
@@ -30,6 +32,31 @@ Install a SSH client
 To make a connection with a remote machine (c.q. *Leibniz*), you need a supported SSH client.
 This comes pre-installed on macOS. For Windows and Linux, check
 `this <https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client>`_.
+
+.. _generate-ssh-key-pair:
+
+Generate a SSH key pair
+"""""""""""""""""""""""
+Use this command to generate a SSH key pair::
+
+    > ssh-keygen -t rsa -b 4096
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/home/user/.ssh/id_rsa):
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
+    Your identification has been saved in /home/user/.ssh/id_rsa.
+    Your public key has been saved in /home/user/.ssh/id_rsa.pub.
+
+The location of your home directory may look different depending on your operating system.
+(On Windows it is usally ``C:\Users\<your-user-name>``). It is best to accept the default location.
+
+The public key ``/home/user/.ssh/id_rsa.pub`` is in fact a *lock* which will be placed in your home
+file system on *Leibniz*. This lock can only be opened with the correct private key, which you keep
+on the laptop or desktop you use to access *Leibniz*. Never expose your private key to anyone. If,
+however, this should accidentally happen, contact your sysadmin or go to the
+`VSC account page <https://account.vscentrum.be/django/>`_ and withdraw the compromised key. Then,
+generate a new key pair and upload the new public key.
+
 
 Install and setup Visual Studio Code for remote development with Python, C++ and Fortran
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -119,6 +146,8 @@ key that you created for your account. (Note that on windows you must use backsl
 
 Next, it with will prompt you for the location of the ssh config file. The default location is generally ok.
 A new entry with the name `login1-leibniz.hpc.uantwerpen.be` will appear in the `SSH Targets` list.
+
+When VSCode_ asks what to choose for the host (Linux/Windows/MacOS/) choose "Linux".
 
 .. image:: pictures/SSH_Targets_2.png
    :scale: 45%
