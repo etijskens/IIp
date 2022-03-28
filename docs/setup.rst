@@ -16,7 +16,8 @@ If you do not have an account yet, generate a SSH key pair (:ref:`generate-ssh-k
 
 To view and edit your project directories and files, or execute the scripts and programs you write,
 we use Visual Studio Code (VSCode), which is a graphical IDE (integrated developmnent environment).
-This allows for a smoother experience than the standard terminal based access on the cluster.
+This allows for a smoother experience than the standard terminal based access on the cluster. VSCode_
+is available on Windows, Linux, and macOS.
 
 You might find the `documentation for using the VSC clusters <https://docs.vscentrum.be/en/latest/>`_
 useful.
@@ -50,13 +51,17 @@ Use this command to generate a SSH key pair::
 The location of your home directory may look different depending on your operating system.
 (On Windows it is usally ``C:\Users\<your-user-name>``). It is best to accept the default location.
 
+.. note::
+
+    In any case, do **not** use a path containing spaces.
+
 The public key ``/home/user/.ssh/id_rsa.pub`` is in fact a *lock* which will be placed in your home
 file system on *Leibniz*. This lock can only be opened with the correct private key, which you keep
-on the laptop or desktop you use to access *Leibniz*. Never expose your private key to anyone. If,
+on the laptop or desktop you use to access *Leibniz*.  Never expose your private key to anyone. If,
 however, this should accidentally happen, contact your sysadmin or go to the
-`VSC account page <https://account.vscentrum.be/django/>`_ and withdraw the compromised key. Then,
-generate a new key pair and upload the new public key.
-
+`VSC account page <https://account.vscentrum.be/>`_ and withdraw the compromised key. Then,
+generate a new key pair and upload the new public key. The private key can be furter protected with
+a passphrase (a lock on the lock).
 
 Install and setup Visual Studio Code for remote development with Python, C++ and Fortran
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -203,8 +208,7 @@ If you fail to connect to *Leibniz*, try to open a terminal (command prompt or p
 
     ssh -v[v[v]] <userid>@login1-leibniz.hpc.uantwerpen.be -i </path/to/your/private-key>
 
-This produces a lot more output that may help you to pinpoint the origin of the failure. This certainly
-helps when the problem is the location of keys or configuration files.
+This produces a lot more output that may help you to pinpoint the origin of the failure.
 
 Unprotected private key file error
 """"""""""""""""""""""""""""""""""
