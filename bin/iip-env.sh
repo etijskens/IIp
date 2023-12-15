@@ -49,7 +49,8 @@ module load $VSC_INSTITUTE_CLUSTER/supported
 # load recent versions of git, gh, and CMake for micc2
 module load git
 module load gh
-module load CMake
+# module load CMake
+module load buildtools
 
 # Select the Python version of your choice.
 # However, if you change the Python module,
